@@ -59,7 +59,15 @@ class EventInstance(StudioObject):
         for i, val in enumerate(values):
             array[i] = val
         self._call("SetParameterValuesByIndices", indices, array, num_params)
+        
+    def set_volume(self, volume):
+        self._call("SetVolume", c_float(volume))
 
+    def get_volume(self, volume):
+        volume = c_float()
+        finalVolume = c_float()
+        self._call("GetVolume", byref(volume), byref(finalVolume))
+        return volume
 
     @property
     def channel_group(self):
