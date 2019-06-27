@@ -1,6 +1,6 @@
 from ctypes import c_bool, c_float, c_int, c_void_p, byref
 from .studio_object import StudioObject
-from .enums import PLAYBACK_STATE
+from .enums import PLAYBACK_STATE, STOP_MODE
 from .parameter_instance import ParameterInstance
 from ..utils import prepare_str
 from ..channel_group import ChannelGroup
@@ -11,6 +11,9 @@ class EventInstance(StudioObject):
     def start(self):
         self._call("Start")
 
+    def stop(self, mode=STOP_MODE.STOP_IMMEDIATE):
+        self._call("Stop", c_int(mode.value))
+        
     @property
     def paused(self):
         paused = c_bool()
