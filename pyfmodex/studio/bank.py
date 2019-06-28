@@ -40,7 +40,7 @@ class Bank(StudioObject):
     
     @property
     def bus_list(self):
-        count = self.event_count
+        count = self.bus_count
         array = (c_void_p * count)()
         written = c_int()
         self._call("GetBusList", array, count, byref(written))
